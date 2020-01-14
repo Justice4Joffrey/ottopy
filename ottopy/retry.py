@@ -13,7 +13,7 @@ class CallResponse:
     success: bool
 
 
-def retry_fn(
+def call_retry(
     fn: Callable, exceptions: ExceptionType, sleep: int, retries: int, *args, **kwargs
 ) -> CallResponse:
     exc = None
