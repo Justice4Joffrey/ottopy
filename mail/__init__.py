@@ -23,7 +23,20 @@ from mail.classes import (
 from mail.config import SENDER, USER_ID, TOKEN_FILE, SCOPES
 
 
-__all__ = ["authenticate", "get_email", "get_inbox", "send_email", "create_message"]
+__all__ = [
+    "authenticate",
+    "get_email",
+    "get_inbox",
+    "send_email",
+    "create_message",
+    "Email",
+    "EmailBody",
+    "EmailHeader",
+    "EmailMeta",
+    "EmailPayload",
+    "SendEmailResponse",
+    "InboxItems",
+]
 
 
 def email_from_dict(dct: Dict[str, Any]) -> Email:
