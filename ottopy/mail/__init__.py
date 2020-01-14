@@ -11,7 +11,7 @@ from googleapiclient import errors
 # noinspection PyProtectedMember
 from googleapiclient.discovery import build, Resource
 
-from mail.classes import (
+from ottopy.mail.classes import (
     EmailBody,
     EmailHeader,
     EmailPayload,
@@ -20,7 +20,7 @@ from mail.classes import (
     SendEmailResponse,
     InboxItems,
 )
-from mail.config import SENDER, USER_ID, TOKEN_FILE, SCOPES
+from ottopy.mail import USER_ID, TOKEN_FILE, SCOPES
 
 
 __all__ = [
