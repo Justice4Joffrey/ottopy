@@ -11,7 +11,6 @@ from googleapiclient import errors
 # noinspection PyProtectedMember
 from googleapiclient.discovery import build, Resource
 
-from mail import EmailBody, Email, EmailMeta, SendEmailResponse, InboxItems
 from mail.classes import (
     EmailBody,
     EmailHeader,
@@ -22,6 +21,9 @@ from mail.classes import (
     InboxItems,
 )
 from mail.config import SENDER, USER_ID, TOKEN_FILE, SCOPES
+
+
+__all__ = ["authenticate", "get_email", "get_inbox", "send_email", "create_message"]
 
 
 def email_from_dict(dct: Dict[str, Any]) -> Email:
