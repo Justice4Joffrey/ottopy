@@ -12,7 +12,6 @@ from googleapiclient import errors
 from googleapiclient.discovery import build, Resource
 
 from ottopy.mail.classes import (
-    EmailBody,
     EmailHeader,
     EmailPayload,
     Email,
@@ -20,7 +19,7 @@ from ottopy.mail.classes import (
     SendEmailResponse,
     InboxItems,
 )
-from ottopy.mail import USER_ID, TOKEN_FILE, SCOPES
+from ottopy.mail.config import USER_ID, TOKEN_FILE, SCOPES
 
 
 __all__ = [
@@ -30,7 +29,6 @@ __all__ = [
     "send_email",
     "create_message",
     "Email",
-    "EmailBody",
     "EmailHeader",
     "EmailMeta",
     "EmailPayload",
@@ -41,9 +39,8 @@ __all__ = [
 
 def email_from_dict(dct: Dict[str, Any]) -> Email:
     pl = dct["payload"]
-    body = EmailBody(pl["body"]["size"], pl["body"]["data"])
     headers = tuple(EmailHeader(h["name"], h["value"]) for h in pl["headers"])
-    payload = EmailPayload(pl["partId"], pl["mimeType"], pl["filename"], headers, body)
+    payload = EmailPayload(pl["mimeType"], headers)
     return Email(
         dct["id"],
         dct["threadId"],

@@ -3,12 +3,6 @@ from typing import Tuple, Optional
 
 
 @dataclass(frozen=True)
-class EmailBody:
-    size: int
-    data: str
-
-
-@dataclass(frozen=True)
 class EmailHeader:
     name: str
     value: str
@@ -16,11 +10,8 @@ class EmailHeader:
 
 @dataclass(frozen=True)
 class EmailPayload:
-    part_id: str
     mime_type: str
-    filename: str
     headers: Tuple[EmailHeader, ...]
-    body: EmailBody
 
 
 @dataclass(frozen=True)
