@@ -1,7 +1,7 @@
-import setuptools
+from distutils.core import setup
 
 
-setuptools.setup(
+setup(
     name="ottopy",
     version="0.0.1",
     author="Otto Castle",
