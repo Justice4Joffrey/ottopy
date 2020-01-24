@@ -2,9 +2,9 @@ from distutils.core import setup
 import setuptools
 
 
-setup(
+setuptools.setup(
     name="ottopy",
-    version="0.0.1",
+    version="0.1.0",
     author="Otto Castle",
     author_email="otto.castle1@gmail.com",
     description="Python tools",
