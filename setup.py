@@ -1,14 +1,12 @@
-from distutils.core import setup
-import setuptools
+from setuptools import setup, find_packages
 
-
-setuptools.setup(
+setup(
     name="ottopy",
     version="0.1.0",
     author="Otto Castle",
     author_email="otto.castle1@gmail.com",
-    description="Python tools",
-    packages=setuptools.find_packages(),
+    description="Useful python tools",
+    packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
