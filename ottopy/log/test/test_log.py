@@ -2,7 +2,8 @@ import os
 import tempfile
 import unittest
 
-from ottopy.dt import strptime, DtFormatStr, DateTime
+from ottopy.dt import strptime, DateTime
+from ottopy.dt.formats import DtFormatStr
 from ottopy.log import make_file_handler
 from ottopy.log.consts import DEFAULT_SUFFIX
 

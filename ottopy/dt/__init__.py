@@ -1,9 +1,8 @@
-from typing import NamedTuple, Union
+from typing import Union
 import datetime
 
 __all__ = [
     "DateTime",
-    "DtFormatStr",
     "new_datetime",
     "strftime",
     "strptime",
@@ -28,14 +27,6 @@ def new_datetime(*args, **kwargs) -> DateTime:
 
 DISTANT_FUTURE = new_datetime(9999, 12, 31, 23, 59, 59, 999999)
 EPOCH = new_datetime(1970, 1, 1, 0, 0, 0)
-
-
-class _DtFormatStrType(NamedTuple):
-    LOGGING_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S.%f%z"
-    FILENAME_FORMAT: str = "%Y-%m-%d.%H-%M-%S.%f%z"
-
-
-DtFormatStr = _DtFormatStrType()
 
 
 def utcfromtimestamp(ts: Union[float, int]) -> DateTime:

@@ -2,7 +2,8 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from typing import NamedTuple
 
-from ottopy.dt import DtFormatStr, utcfromtimestamp, strftime, utcnow
+from ottopy.dt import utcfromtimestamp, strftime, utcnow
+from ottopy.dt.formats import DtFormatStr
 
 
 class UTCMicroSecFormatter(logging.Formatter):
