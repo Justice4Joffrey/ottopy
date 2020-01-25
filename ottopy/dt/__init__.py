@@ -9,6 +9,7 @@ __all__ = [
     "strptime",
     "utcnow",
     "utcfromtimestamp",
+    "DISTANT_FUTURE",
     "EPOCH",
     "UTC",
 ]
@@ -25,6 +26,7 @@ def new_datetime(*args, **kwargs) -> DateTime:
     return DateTime(*args, **kwargs, tzinfo=UTC)
 
 
+DISTANT_FUTURE = new_datetime(9999, 12, 31, 23, 59, 59, 999999)
 EPOCH = new_datetime(1970, 1, 1, 0, 0, 0)
 
 
