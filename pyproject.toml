@@ -15,6 +15,7 @@ google-auth-oauthlib = "^0.4.1"
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
 flake8 = "^3.7.9"
+twisted = "^19.10.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

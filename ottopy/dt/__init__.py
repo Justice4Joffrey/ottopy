@@ -28,12 +28,12 @@ def new_datetime(*args, **kwargs) -> DateTime:
 EPOCH = new_datetime(1970, 1, 1, 0, 0, 0)
 
 
-class DtFormatStrType(NamedTuple):
+class _DtFormatStrType(NamedTuple):
     LOGGING_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S.%f%z"
     FILENAME_FORMAT: str = "%Y-%m-%d.%H-%M-%S.%f%z"
 
 
-DtFormatStr = DtFormatStrType()
+DtFormatStr = _DtFormatStrType()
 
 
 def utcfromtimestamp(ts: Union[float, int]) -> DateTime:
