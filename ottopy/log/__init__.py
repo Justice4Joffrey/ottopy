@@ -1,7 +1,11 @@
 import logging
 import sys
 
-from ottopy.log.classes import UTCMicroSecFormatter, LogLevel, UTCTimedRotatingFileHandler
+from ottopy.log.classes import (
+    UTCMicroSecFormatter,
+    LogLevel,
+    UTCTimedRotatingFileHandler,
+)
 from ottopy.log.consts import FORMATTER, RAW_FORMATTER, DEFAULT_SUFFIX
 
 __all__ = [
@@ -16,7 +20,7 @@ __all__ = [
     "StreamHandler",
     "UTCMicroSecFormatter",
     "FORMATTER",
-    "RAW_FORMATTER"
+    "RAW_FORMATTER",
 ]
 
 # unpack to help auto-import
@@ -25,7 +29,9 @@ Formatter = logging.Formatter
 Logger = logging.Logger
 
 
-def get_logger(name: str = "", level: int = LogLevel.INFO, propagate: bool = True) -> Logger:
+def get_logger(
+    name: str = "", level: int = LogLevel.INFO, propagate: bool = True
+) -> Logger:
     logger = logging.getLogger(name)
     logger.propagate = propagate
     logger.setLevel(level)
@@ -39,7 +45,7 @@ def get_raw_logger(name: str = "raw") -> Logger:
 
 
 def make_stdout_handler(
-        formatter: Formatter = FORMATTER, level: int = LogLevel.DEBUG
+    formatter: Formatter = FORMATTER, level: int = LogLevel.DEBUG
 ) -> StreamHandler:
     handler = StreamHandler(sys.stdout)
     handler.setLevel(level)

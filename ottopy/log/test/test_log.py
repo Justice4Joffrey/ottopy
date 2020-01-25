@@ -16,9 +16,7 @@ class TestLog(unittest.TestCase):
             filepath = os.path.join(d, base_filename)
             handler = make_file_handler(filepath)
             handler.doRollover()
-            rolled = tuple(
-                x for x in os.listdir(d) if x != filename
-            )[0]
+            rolled = tuple(x for x in os.listdir(d) if x != filename)[0]
             ext = rolled.replace(f"{filename}.", "")
             dtime = strptime(ext, DtFormatStr.FILENAME_FORMAT)
             self.assertIsInstance(dtime, DateTime)

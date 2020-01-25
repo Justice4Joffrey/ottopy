@@ -46,6 +46,3 @@ class _LogLevelType(NamedTuple):
 
 
 LogLevel = _LogLevelType()
-
-
-
