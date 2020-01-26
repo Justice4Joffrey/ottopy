@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 from ottopy.log.classes import (
@@ -24,6 +25,8 @@ __all__ = [
 ]
 
 # unpack to help auto-import
+from ottopy.read import create_dir
+
 StreamHandler = logging.StreamHandler
 Formatter = logging.Formatter
 Logger = logging.Logger
@@ -70,6 +73,7 @@ def make_file_handler(
 
 
 def init_file_logger(filepath: str) -> Logger:
+    create_dir(os.path.dirname(filepath))
     logger = get_logger()
     logger.addHandler(make_file_handler(filepath))
     return logger

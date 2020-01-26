@@ -17,3 +17,8 @@ def read_json_file(filename: str, *, mode: str = "rb") -> Dict[str, Any]:
 
 def parse_json(text: Union[str, bytes]) -> Dict[str, Any]:
     return json.loads(text)
+
+
+def create_dir(dirname: str) -> None:
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
