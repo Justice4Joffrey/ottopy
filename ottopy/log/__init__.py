@@ -64,6 +64,7 @@ def make_file_handler(
     formatter: Formatter = FORMATTER,
     suffix: str = DEFAULT_SUFFIX,
 ) -> UTCTimedRotatingFileHandler:
+    create_dir(os.path.dirname(filepath))
     handler = UTCTimedRotatingFileHandler(
         f"{filepath}{suffix}", when=when, interval=interval, utc=True
     )
@@ -73,7 +74,6 @@ def make_file_handler(
 
 
 def init_file_logger(filepath: str) -> Logger:
-    create_dir(os.path.dirname(filepath))
     logger = get_logger()
     logger.addHandler(make_file_handler(filepath))
     return logger
