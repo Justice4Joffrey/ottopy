@@ -1,5 +1,9 @@
 import json
+import os
 from typing import Dict, Any, Union
+
+
+HOME = os.path.expanduser("~")
 
 
 def read_file(filename: str, *, mode: str = "rb") -> Union[str, bytes]:
