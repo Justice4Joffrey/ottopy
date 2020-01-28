@@ -1,3 +1,3 @@
-def f(x):
+def f(x) -> str:
     print(x)
-    return 123
+    return x
