@@ -16,3 +16,7 @@ repos:
     hooks:
       - id: mypy
         args: ['--check-untyped-defs']
+  - repo: git@github.com:Justice4Joffrey/hooks.git
+    rev: master
+    hooks:
+      - id: autoflake
