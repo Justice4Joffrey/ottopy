@@ -21,6 +21,17 @@ docs = ["sphinx", "zope.interface"]
 tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
 
 [[package]]
+category = "main"
+description = "Removes unused imports and unused variables"
+name = "autoflake"
+optional = false
+python-versions = "*"
+version = "1.3.1"
+
+[package.dependencies]
+pyflakes = ">=1.1.0"
+
+[[package]]
 category = "dev"
 description = "Self-service finite-state machines for the programmer on the go."
 name = "automat"
@@ -319,7 +330,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.5.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "passive checker of Python programs"
 name = "pyflakes"
 optional = false
@@ -501,7 +512,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "4a5245231e16115b38888336191f6afdb40dfdd9fe7f99c1fa8989ad1f5c42ad"
+content-hash = "6e1fbeccd688dcffdc34d71a8d1a9675ad50e6a66399b46a9b954aee594c24b3"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -512,6 +523,9 @@ appdirs = [
 attrs = [
     {file = "attrs-19.3.0-py2.py3-none-any.whl", hash = "sha256:08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c"},
     {file = "attrs-19.3.0.tar.gz", hash = "sha256:f7b7ce16570fe9965acd6d30101a28f62fb4a7f9e926b3bbc9b61f8b04247e72"},
+]
+autoflake = [
+    {file = "autoflake-1.3.1.tar.gz", hash = "sha256:680cb9dade101ed647488238ccb8b8bfb4369b53d58ba2c8cdf7d5d54e01f95b"},
 ]
 automat = [
     {file = "Automat-0.8.0-py2.py3-none-any.whl", hash = "sha256:81c93c55d2742c55e74e6497a48e048a859fa01d7aa0b91a032be432229837e2"},

@@ -91,7 +91,11 @@ def send_email(
     service: Resource, message: Dict[str, str], user_id: str = USER_ID
 ) -> SendEmailResponse:
     """Send an email. For example:
-    send_email(authenticate(), USER_ID, create_message(SENDER, SENDER, "Test", "this is a test."))
+    send_email(
+        authenticate(),
+        USER_ID,
+        create_message(SENDER, SENDER, "Test", "this is a test.")
+    )
 
     :param service: Email session
     :param message: Text to send
@@ -124,8 +128,8 @@ def create_message(
 
 
 def get_inbox(service: Resource, user_id: str = USER_ID) -> InboxItems:
-    """Get inbox. Use get_email(service, message_id) with the "message_id" in "messages" to get
-    an individual email.
+    """Get inbox. Use get_email(service, message_id) with the "message_id" in
+    "messages" to get an individual email.
 
     :param service: Email session
     :param user_id: Session identifier (just set to 'me', nothing else works)
