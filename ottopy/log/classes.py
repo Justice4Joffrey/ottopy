@@ -1,14 +1,18 @@
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from typing import NamedTuple
+from typing import NamedTuple, Literal, Optional
 
-from ottopy.dt import utcfromtimestamp, strftime, utcnow
+from ottopy.dt import utcfromtimestamp, strftime, utcnow, DateTime
 from ottopy.dt.formats import DtFormatStr
+
+WhenType = Literal[
+    "s", "m", "h", "d", "w-1", "w1", "w2", "w3", "w4", "w5", "w6", "midnight"
+]
 
 
 class UTCMicroSecFormatter(logging.Formatter):
     default_time_format = DtFormatStr.LOGGING_DATE_FORMAT
-    default_msec_format = None
+    default_msec_format = ""
 
     def converter(self, x):
         return utcfromtimestamp(x)
@@ -24,11 +28,27 @@ class UTCMicroSecFormatter(logging.Formatter):
 class UTCTimedRotatingFileHandler(TimedRotatingFileHandler):
     file_time_format = DtFormatStr.FILENAME_FORMAT
 
-    def __init__(self, *args, **kwargs) -> None:
-        if not kwargs.pop("utc", True):
-            raise ValueError(f"'utc' argument must be {True!r} or not set")
-
-        TimedRotatingFileHandler.__init__(self, *args, **kwargs, utc=True)
+    def __init__(
+        self,
+        filename: str,
+        when: WhenType = "midnight",
+        interval: int = 1,
+        backupCount: int = 0,
+        encoding: Optional[str] = None,
+        delay: bool = False,
+        atTime: Optional[DateTime] = None,
+    ) -> None:
+        TimedRotatingFileHandler.__init__(
+            self,
+            filename,
+            when=when,
+            interval=interval,
+            backupCount=backupCount,
+            encoding=encoding,
+            delay=delay,
+            utc=True,
+            atTime=atTime,
+        )
         self.namer = self._namer
 
     def _namer(self, __):

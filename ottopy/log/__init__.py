@@ -6,7 +6,7 @@ from ottopy.log.classes import (
     UTCMicroSecFormatter,
     LogLevel,
     UTCTimedRotatingFileHandler,
-)
+    WhenType)
 from ottopy.log.consts import FORMATTER, RAW_FORMATTER, DEFAULT_SUFFIX
 
 __all__ = [
@@ -58,7 +58,7 @@ def make_stdout_handler(
 
 def make_file_handler(
     filepath: str,
-    when: str = "midnight",
+    when: WhenType = "midnight",
     interval: int = 1,
     level: int = LogLevel.DEBUG,
     formatter: Formatter = FORMATTER,
@@ -66,7 +66,7 @@ def make_file_handler(
 ) -> UTCTimedRotatingFileHandler:
     create_dir(os.path.dirname(filepath))
     handler = UTCTimedRotatingFileHandler(
-        f"{filepath}{suffix}", when=when, interval=interval, utc=True
+        f"{filepath}{suffix}", when=when, interval=interval
     )
     handler.setLevel(level)
     handler.setFormatter(formatter)

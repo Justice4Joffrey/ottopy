@@ -3,6 +3,8 @@ from typing import Union
 
 __all__ = [
     "DateTime",
+    "Date",
+    "Time",
     "new_datetime",
     "strftime",
     "strptime",
@@ -14,6 +16,8 @@ __all__ = [
 ]
 
 DateTime = datetime.datetime
+Date = datetime.date
+Time = datetime.time
 _fromtimestamp = datetime.datetime.fromtimestamp
 _strftime = datetime.datetime.strftime
 _strptime = datetime.datetime.strptime
