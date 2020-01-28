@@ -17,3 +17,4 @@ repos:
         name: mypy
         entry: mypy
         language: python
+        types: [python]
