@@ -7,7 +7,7 @@ python-versions = "*"
 version = "1.4.3"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "A few extensions to pyyaml."
 name = "aspy.yaml"
 optional = false
@@ -109,7 +109,7 @@ python-versions = "*"
 version = "2019.11.28"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Validate configuration and produce human readable error messages."
 name = "cfgv"
 optional = false
@@ -253,7 +253,7 @@ version = "19.0.0"
 idna = ">=2.5"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "File identification library for Python"
 name = "identify"
 optional = false
@@ -272,7 +272,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.8"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Read metadata from Python packages"
 marker = "python_version < \"3.8\""
 name = "importlib-metadata"
@@ -331,7 +331,7 @@ python-versions = "*"
 version = "0.4.3"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Node.js virtual environment builder"
 name = "nodeenv"
 optional = false
@@ -360,7 +360,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "0.7.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 name = "pre-commit"
 optional = false
@@ -433,7 +433,7 @@ python-versions = "*"
 version = "2019.3"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
@@ -509,7 +509,7 @@ python-versions = "*"
 version = "1.9.5"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
 optional = false
@@ -583,7 +583,7 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Virtual Python Environment builder"
 name = "virtualenv"
 optional = false
@@ -595,7 +595,7 @@ docs = ["sphinx (>=1.8.0,<2)", "towncrier (>=18.5.0)", "sphinx-rtd-theme (>=0.4.
 testing = ["pytest (>=4.0.0,<5)", "coverage (>=4.5.0,<5)", "pytest-timeout (>=1.3.0,<2)", "six (>=1.10.0,<2)", "pytest-xdist", "pytest-localserver", "pypiserver", "mock", "xonsh"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 marker = "python_version < \"3.8\""
 name = "zipp"
@@ -624,7 +624,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "c075fc454b0b1c676b0e0b07eac9090b97d5d53c71c179ffbfae9682e574f297"
+content-hash = "948d5bfc544022bf52cddf17dd21927b16df44458e5d89dc7f82d4ab32b3866f"
 python-versions = "^3.7"
 
 [metadata.files]
