@@ -4,12 +4,12 @@ import pickle
 from email.mime.text import MIMEText
 from typing import Dict, Any
 
-from google.auth.transport.requests import Request
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient import errors
+from google.auth.transport.requests import Request  # type: ignore
+from google_auth_oauthlib.flow import InstalledAppFlow  # type: ignore
+from googleapiclient import errors  # type:  ignore
 
 # noinspection PyProtectedMember
-from googleapiclient.discovery import build, Resource
+from googleapiclient.discovery import build, Resource  # type: ignore
 
 from ottopy.mail.classes import (
     EmailHeader,

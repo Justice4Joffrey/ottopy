@@ -9,7 +9,7 @@ from ottopy.log.consts import DEFAULT_SUFFIX
 
 
 class TestLog(unittest.TestCase):
-    def test_tr_handler_filename(self):
+    def test_tr_handler_filename(self) -> None:
         with tempfile.TemporaryDirectory() as d:
             base_filename = f"test"
             filename = f"{base_filename}{DEFAULT_SUFFIX}"

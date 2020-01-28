@@ -6,7 +6,8 @@ from ottopy.log.classes import (
     UTCMicroSecFormatter,
     LogLevel,
     UTCTimedRotatingFileHandler,
-    WhenType)
+    WhenType,
+)
 from ottopy.log.consts import FORMATTER, RAW_FORMATTER, DEFAULT_SUFFIX
 
 __all__ = [

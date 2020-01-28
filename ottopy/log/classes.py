@@ -1,8 +1,8 @@
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from typing import NamedTuple, Literal, Optional
+from typing import Any, Callable, Literal, NamedTuple, Optional
 
-from ottopy.dt import utcfromtimestamp, strftime, utcnow, DateTime
+from ottopy.dt import DateTime, strftime, utcfromtimestamp, utcnow
 from ottopy.dt.formats import DtFormatStr
 
 WhenType = Literal[
@@ -14,11 +14,13 @@ class UTCMicroSecFormatter(logging.Formatter):
     default_time_format = DtFormatStr.LOGGING_DATE_FORMAT
     default_msec_format = ""
 
-    def converter(self, x):
+    def dt_converter(self, x: int) -> DateTime:
         return utcfromtimestamp(x)
 
-    def formatTime(self, record, datefmt=None):
-        ct = self.converter(record.created)
+    def formatTime(
+        self, record: logging.LogRecord, datefmt: Optional[str] = None
+    ) -> str:
+        ct = self.dt_converter(record.created)
         if datefmt:
             return strftime(ct, datefmt)
         else:
@@ -51,7 +53,7 @@ class UTCTimedRotatingFileHandler(TimedRotatingFileHandler):
         )
         self.namer = self._namer
 
-    def _namer(self, __):
+    def _namer(self, __: Any) -> str:
         now = strftime(utcnow(), self.file_time_format)
         return f"{self.baseFilename}.{now}"
 
