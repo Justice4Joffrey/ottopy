@@ -1,6 +1,6 @@
 import time
 from dataclasses import dataclass
-from typing import Callable, Union, Tuple, Any, Type
+from typing import Callable, Union, Tuple, Any, Type, Optional
 
 ExceptionType = Union[Type[Exception], Tuple[Type[Exception], ...]]
 
@@ -9,18 +9,19 @@ ExceptionType = Union[Type[Exception], Tuple[Type[Exception], ...]]
 class CallResponse:
     payload: Any
     retries: int
-    last_exception: ExceptionType
+    last_exception: Optional[Exception]
     success: bool
 
 
 def call_retry(
     fn: Callable, exceptions: ExceptionType, sleep: int, retries: int, *args, **kwargs
 ) -> CallResponse:
-    exc = None
+    exc: Optional[Exception] = None
     for retry in range(retries):
         try:
             return CallResponse(fn(*args, **kwargs), retry, exc, True)
-        except exceptions as exc:
+        except exceptions as e:
+            exc = e
             time.sleep(sleep)
     else:
         return CallResponse(None, retries, exc, False)

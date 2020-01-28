@@ -1,5 +1,5 @@
-from typing import Union
 import datetime
+from typing import Union
 
 __all__ = [
     "DateTime",
@@ -21,8 +21,23 @@ _now = datetime.datetime.now
 UTC = datetime.timezone.utc
 
 
-def new_datetime(*args, **kwargs) -> DateTime:
-    return DateTime(*args, **kwargs, tzinfo=UTC)
+def new_datetime(
+    year: int,
+    month: int,
+    day: int,
+    hour: int = 0,
+    minute: int = 0,
+    second: int = 0,
+    microsecond: int = 0,
+    tzinfo: datetime.tzinfo = UTC,
+    *,
+    fold: int = 0,
+) -> DateTime:
+    if tzinfo is None:
+        raise ValueError(f"tzinfo must not be {tzinfo!r}")
+    return DateTime(
+        year, month, day, hour, minute, second, microsecond, tzinfo=tzinfo, fold=fold
+    )
 
 
 DISTANT_FUTURE = new_datetime(9999, 12, 31, 23, 59, 59, 999999)
