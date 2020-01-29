@@ -1,6 +1,6 @@
 import time
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
+from typing import Any, Callable, Optional, Type, Union, Tuple
 
 ExceptionType = Union[Type[Exception], Tuple[Type[Exception], ...]]
 
@@ -18,8 +18,8 @@ def call_retry(
     exceptions: ExceptionType,
     sleep: int,
     retries: int,
-    *args: Tuple[Any],
-    **kwargs: Dict[Any, Any]
+    *args: Any,
+    **kwargs: Any
 ) -> CallResponse:
     exc: Optional[Exception] = None
     for retry in range(retries):
