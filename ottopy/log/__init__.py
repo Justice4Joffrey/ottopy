@@ -10,7 +10,6 @@ from ottopy.log.classes import (
 )
 from ottopy.log.consts import DEFAULT_SUFFIX, FORMATTER, RAW_FORMATTER
 
-# unpack to help auto-import
 from ottopy.read import create_dir
 
 __all__ = [
@@ -29,6 +28,7 @@ __all__ = [
 ]
 
 
+# unpack to help auto-import
 StreamHandler = logging.StreamHandler
 Formatter = logging.Formatter
 Logger = logging.Logger
