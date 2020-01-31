@@ -13,7 +13,7 @@ google-auth-httplib2 = "^0.0.3"
 google-auth-oauthlib = "^0.4.1"
 mypy = "^0.761"
 pytz = "^2019.3"
-pre-commit = "^1.21.0"
+pre-commit = "1.21.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
