@@ -33,12 +33,14 @@ def call_retry(
     validator: Callable[[T], T],
     exceptions: ExceptionType,
     sleep: int,
-    retries: int,
+    attempts: int,
     *args: Any,
     **kwargs: Any,
 ) -> CallResponse:
     exc: Optional[Exception] = None
-    for retry in range(retries):
+    if attempts < 1:
+        raise ValueError(f"Attempts must be 1 or greater, not {attempts}")
+    for retry in range(attempts):
         try:
             return CallResponse(validator(fn(*args, **kwargs)), retry, True, exc)
         except exceptions as e:
@@ -46,8 +48,8 @@ def call_retry(
             time.sleep(sleep)
     else:
         exception = RuntimeError(
-            f"Failed {retries} times "
+            f"Failed {attempts} times "
             f"calling {_fn_string(fn, validator, args, kwargs)}. "
             f"Last exception: {exc}"
         )
-        return CallResponse(None, retries, False, exc, exception=exception)
+        return CallResponse(None, attempts, False, exc, exception=exception)
