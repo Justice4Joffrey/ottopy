@@ -13,6 +13,8 @@ from typing import (
     cast,
 )
 
+from requests import Response
+
 ExceptionType = Union[Type[Exception], Tuple[Type[Exception], ...]]
 
 
@@ -83,3 +85,10 @@ def call_retry_or_raise(
     r: CallResponse[T]
     r = cast(CallResponse[T], resp)
     return r
+
+
+def validate_response_200(response: Response) -> Response:
+    if response.status_code != 200:
+        raise ValueError(f"Status code {response.status_code}")
+    else:
+        return response
