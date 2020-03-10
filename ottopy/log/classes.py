@@ -4,6 +4,7 @@ from typing import Any, Literal, NamedTuple, Optional
 
 from ottopy.dt import DateTime, strftime, utcfromtimestamp, utcnow
 from ottopy.dt.formats import DtFormatStr
+from ottopy.log.string_utils import unicode_escape
 
 WhenType = Literal[
     "s", "m", "h", "d", "w-1", "w1", "w2", "w3", "w4", "w5", "w6", "midnight"
@@ -25,6 +26,10 @@ class UTCMicroSecFormatter(logging.Formatter):
             return strftime(ct, datefmt)
         else:
             return strftime(ct, self.default_time_format)
+
+    def formatMessage(self, record: logging.LogRecord) -> str:
+        record.msg = unicode_escape(record.msg)
+        return logging.Formatter.formatMessage(self, record)
 
 
 class UTCTimedRotatingFileHandler(TimedRotatingFileHandler):
