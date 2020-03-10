@@ -1,20 +1,31 @@
 import time
 from dataclasses import dataclass, field
-from typing import Any, Callable, Optional, Type, Union, Tuple, TypeVar, Dict
+from typing import (
+    Any,
+    Callable,
+    Optional,
+    Type,
+    Union,
+    Tuple,
+    TypeVar,
+    Dict,
+    Generic,
+    cast,
+)
 
 ExceptionType = Union[Type[Exception], Tuple[Type[Exception], ...]]
 
 
+T = TypeVar("T")
+
+
 @dataclass(frozen=True)
-class CallResponse:
-    payload: Any
+class CallResponse(Generic[T]):
+    payload: T
     retries: int
     success: bool
     last_exception: Optional[Exception]
     exception: Optional[Exception] = field(default=None)
-
-
-T = TypeVar("T")
 
 
 def _fn_string(
@@ -36,7 +47,7 @@ def call_retry(
     attempts: int,
     *args: Any,
     **kwargs: Any,
-) -> CallResponse:
+) -> CallResponse[Optional[T]]:
     exc: Optional[Exception] = None
     if attempts < 1:
         raise ValueError(f"Attempts must be 1 or greater, not {attempts}")
@@ -53,3 +64,22 @@ def call_retry(
             f"Last exception: {exc}"
         )
         return CallResponse(None, attempts, False, exc, exception=exception)
+
+
+def call_retry_or_raise(
+    fn: Callable[..., T],
+    validator: Callable[[T], T],
+    exceptions: ExceptionType,
+    sleep: int,
+    attempts: int,
+    *args: Any,
+    **kwargs: Any,
+) -> CallResponse[T]:
+    resp = call_retry(fn, validator, exceptions, sleep, attempts, *args, **kwargs)
+    if not resp.success:
+        exc: Exception
+        exc = cast(Exception, resp.exception)
+        raise exc
+    r: CallResponse[T]
+    r = cast(CallResponse[T], resp)
+    return r
