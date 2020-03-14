@@ -29,6 +29,7 @@ class UTCMicroSecFormatter(logging.Formatter):
 
     def formatMessage(self, record: logging.LogRecord) -> str:
         record.msg = unicode_escape(record.msg)
+        record.message = record.getMessage()
         return logging.Formatter.formatMessage(self, record)
 
 
