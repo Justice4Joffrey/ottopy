@@ -14,4 +14,4 @@ def unicode_unescape(string: str) -> str:
 
 def parse_raw_line(line: str) -> Tuple[DateTime, str]:
     dt_str, msg = line.split(" >> ", 1)
-    return strptime(dt_str, DtFormatStr.LOGGING_DATE_FORMAT), msg
+    return strptime(dt_str, DtFormatStr.LOGGING_DATE_FORMAT), unicode_unescape(msg)
