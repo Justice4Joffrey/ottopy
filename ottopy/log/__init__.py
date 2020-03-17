@@ -60,6 +60,7 @@ def make_stdout_handler(
 
 def make_file_handler(
     filepath: str,
+    *,
     when: WhenType = "midnight",
     interval: int = 1,
     level: int = LogLevel.DEBUG,
@@ -73,6 +74,25 @@ def make_file_handler(
     handler.setLevel(level)
     handler.setFormatter(formatter)
     return handler
+
+
+def make_raw_file_handler(
+    filepath: str,
+    *,
+    when: WhenType = "midnight",
+    interval: int = 1,
+    level: int = LogLevel.DEBUG,
+    formatter: Formatter = RAW_FORMATTER,
+    suffix: str = "",
+) -> UTCTimedRotatingFileHandler:
+    return make_file_handler(
+        filepath,
+        when=when,
+        interval=interval,
+        level=level,
+        formatter=formatter,
+        suffix=suffix,
+    )
 
 
 def init_file_logger(filepath: str) -> Logger:
