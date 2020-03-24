@@ -1,12 +1,12 @@
 from requests import Session, Request, Response, PreparedRequest
 from returns.pipeline import flow
 from returns.pointfree import bind
-from returns.result import safe, Result
+from returns.result import safe, ResultE
 
 
 def send_request(
     session: Session, request: Request, *, allow_redirects: bool = True
-) -> Result[Response, Exception]:
+) -> ResultE[Response]:
     return flow(
         request,
         lambda req: prepare(session, req),
@@ -16,7 +16,7 @@ def send_request(
 
 def send_json_request(
     session: Session, request: Request, *, allow_redirects: bool = True
-) -> Result[Response, Exception]:
+) -> ResultE[Response]:
     return flow(
         request,
         lambda req: send_request(session, req, allow_redirects=allow_redirects),
@@ -30,6 +30,7 @@ def validate_json(response: Response) -> Response:
     return response
 
 
+# @impure_safe
 @safe
 def execute(
     session: Session, prepared_request: PreparedRequest, *, allow_redirects: bool = True
@@ -39,5 +40,6 @@ def execute(
     return resp
 
 
+# @safe
 def prepare(session: Session, request: Request) -> PreparedRequest:
     return session.prepare_request(request)
