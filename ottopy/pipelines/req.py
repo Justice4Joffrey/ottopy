@@ -7,21 +7,19 @@ from returns.result import safe, ResultE
 def send_request(
     session: Session, request: Request, *, allow_redirects: bool = True
 ) -> ResultE[Response]:
-    return flow(
-        request,
-        lambda req: prepare(session, req),
-        lambda prep_req: execute(session, prep_req, allow_redirects=allow_redirects),
-    )
+    def _execute(prepared_request: PreparedRequest) -> ResultE[Response]:
+        return execute(session, prepared_request, allow_redirects=allow_redirects)
+
+    return flow(request, lambda req: prepare(session, req), bind(_execute),)
 
 
 def send_json_request(
     session: Session, request: Request, *, allow_redirects: bool = True
 ) -> ResultE[Response]:
-    return flow(
-        request,
-        lambda req: send_request(session, req, allow_redirects=allow_redirects),
-        bind(validate_json),
-    )
+    def _send_request(request: Request) -> ResultE[Response]:
+        return send_request(session, request, allow_redirects=allow_redirects)
+
+    return flow(request, _send_request, bind(validate_json),)
 
 
 @safe
@@ -40,6 +38,9 @@ def execute(
     return resp
 
 
-# @safe
+@safe
 def prepare(session: Session, request: Request) -> PreparedRequest:
     return session.prepare_request(request)
+
+
+pass
