@@ -1,5 +1,5 @@
 import datetime
-from typing import Union
+from typing import Union, Match, cast, Tuple
 
 __all__ = [
     "DateTime",
@@ -42,6 +42,19 @@ def new_datetime(
     return DateTime(
         year, month, day, hour, minute, second, microsecond, tzinfo=tzinfo, fold=fold
     )
+
+
+def datetime_from_regex(match: Match) -> DateTime:
+    tpl = tuple(map(int, match.groups()))
+    if len(tpl) == 8:
+        if tpl[-1] != 0:
+            # don't bother handling non utc ts
+            raise ValueError(f"Offset of {tpl[-1]} not handled")
+        tpl = tpl[:-1]
+    if len(tpl) != 7:
+        raise TypeError(f"Cannot handle tuple length {len(tpl)} - {tpl}")
+    tpl = cast(Tuple[int, int, int, int, int, int, int], tpl)
+    return new_datetime(*tpl)
 
 
 DISTANT_FUTURE = new_datetime(9999, 12, 31, 23, 59, 59, 999999)
