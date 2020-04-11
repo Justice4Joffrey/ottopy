@@ -1,6 +1,6 @@
-from typing import NamedTuple, Pattern
+from typing import NamedTuple, Pattern, cast
 
-from ottopy.dt.formats import DtFormatStr
+from ottopy.dt.formats import DtFormatStr, _DtFormatStrType
 
 _TRANS = {
     "%Y": r"(\d{4})",
@@ -29,3 +29,6 @@ _DtFormatStrRegex = NamedTuple(  # type: ignore
 )
 
 DtFormatStrRegex = _DtFormatStrRegex(*[_substitute(s) for s in DtFormatStr])
+
+# mypy juju to make it clear it has the same attributes as the parent
+DtFormatStrRegex = cast(_DtFormatStrType, DtFormatStrRegex)  # type: ignore
