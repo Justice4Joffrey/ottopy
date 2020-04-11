@@ -20,7 +20,7 @@ def _substitute(string: str) -> str:
             string = string.replace(ph, sub)
     if "%" in string:
         raise ValueError(f"Unsubstituted placeholder: {string!r}")
-    return rf"{string}"
+    return string
 
 
 # mypy shits the bed with dynamic NamedTuples https://github.com/python/mypy/issues/848
