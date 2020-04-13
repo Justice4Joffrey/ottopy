@@ -19,6 +19,7 @@ __all__ = [
     "make_raw_file_handler",
     "make_stdout_handler",
     "init_file_logger",
+    "roll_handler",
     "LogLevel",
     "Logger",
     "Formatter",
