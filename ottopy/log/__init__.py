@@ -16,6 +16,7 @@ __all__ = [
     "get_logger",
     "get_raw_logger",
     "make_file_handler",
+    "make_raw_file_handler",
     "make_stdout_handler",
     "init_file_logger",
     "LogLevel",
