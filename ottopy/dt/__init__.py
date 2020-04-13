@@ -24,6 +24,14 @@ _strptime = datetime.datetime.strptime
 _now = datetime.datetime.now
 UTC = datetime.timezone.utc
 
+DateTimeTuple = Union[
+    Tuple[int, int, int],
+    Tuple[int, int, int, int],
+    Tuple[int, int, int, int, int],
+    Tuple[int, int, int, int, int, int],
+    Tuple[int, int, int, int, int, int, int],
+]
+
 
 def new_datetime(
     year: int,
@@ -45,15 +53,11 @@ def new_datetime(
 
 
 def datetime_from_regex(match: Match) -> DateTime:
-    tpl = tuple(map(int, match.groups()))
-    if len(tpl) == 8:
-        if tpl[-1] != 0:
-            # don't bother handling non utc ts
-            raise ValueError(f"Offset of {tpl[-1]} not handled")
-        tpl = tpl[:-1]
-    if len(tpl) != 7:
-        raise TypeError(f"Cannot handle tuple length {len(tpl)} - {tpl}")
-    tpl = cast(Tuple[int, int, int, int, int, int, int], tpl)
+    _tpl = tuple(map(int, match.groups()))
+    if _tpl[-1] != 0:
+        # don't bother handling non utc ts
+        raise ValueError(f"Offset of {_tpl[-1]} not handled")
+    tpl = cast(DateTimeTuple, _tpl[:-1])
     return new_datetime(*tpl)
 
 
