@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+from typing import cast
 
 from ottopy.log.classes import (
     LogLevel,
@@ -9,7 +10,6 @@ from ottopy.log.classes import (
     WhenType,
 )
 from ottopy.log.consts import DEFAULT_SUFFIX, FORMATTER, RAW_FORMATTER
-
 from ottopy.read import create_dir
 
 __all__ = [
@@ -23,6 +23,7 @@ __all__ = [
     "Formatter",
     "StreamHandler",
     "UTCMicroSecFormatter",
+    "UTCTimedRotatingFileHandler",
     "FORMATTER",
     "RAW_FORMATTER",
 ]
@@ -99,3 +100,11 @@ def init_file_logger(filepath: str) -> Logger:
     logger = get_logger()
     logger.addHandler(make_file_handler(filepath))
     return logger
+
+
+def roll_handler(logger: Logger) -> None:
+    """Force roll a timed handler. Will be unhappy if there is more than
+    one as this suggests you're not quite doing something sane"""
+    assert len(logger.handlers) == 0
+    handler = cast(UTCTimedRotatingFileHandler, logger.handlers[0])
+    handler.doRollover()
