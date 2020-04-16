@@ -658,6 +658,23 @@ version = "1.9.5"
 
 [[package]]
 category = "main"
+description = "Structured Logging for Python"
+name = "structlog"
+optional = false
+python-versions = "*"
+version = "20.1.0"
+
+[package.dependencies]
+six = "*"
+
+[package.extras]
+azure-pipelines = ["coverage", "freezegun (>=0.2.8)", "pretend", "pytest (>=3.3.0)", "simplejson", "pytest-azurepipelines", "python-rapidjson", "pytest-asyncio"]
+dev = ["coverage", "freezegun (>=0.2.8)", "pretend", "pytest (>=3.3.0)", "simplejson", "sphinx", "twisted", "pre-commit", "python-rapidjson", "pytest-asyncio"]
+docs = ["sphinx", "twisted"]
+tests = ["coverage", "freezegun (>=0.2.8)", "pretend", "pytest (>=3.3.0)", "simplejson", "python-rapidjson", "pytest-asyncio"]
+
+[[package]]
+category = "main"
 description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
 optional = false
@@ -796,7 +813,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "b316368aff3934fef828ceb73c6a3543baf9d30ac5d2a0e1cfcf7e57b8290497"
+content-hash = "e054c65d4aff9e9e11aa246a3edbe1c251f8cacb64b9d11a3ce1bed9c6453e91"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1098,6 +1115,10 @@ six = [
 soupsieve = [
     {file = "soupsieve-1.9.5-py2.py3-none-any.whl", hash = "sha256:bdb0d917b03a1369ce964056fc195cfdff8819c40de04695a80bc813c3cfa1f5"},
     {file = "soupsieve-1.9.5.tar.gz", hash = "sha256:e2c1c5dee4a1c36bcb790e0fabd5492d874b8ebd4617622c4f6a731701060dda"},
+]
+structlog = [
+    {file = "structlog-20.1.0-py2.py3-none-any.whl", hash = "sha256:8a672be150547a93d90a7d74229a29e765be05bd156a35cdcc527ebf68e9af92"},
+    {file = "structlog-20.1.0.tar.gz", hash = "sha256:7a48375db6274ed1d0ae6123c486472aa1d0890b08d314d2b016f3aa7f35990b"},
 ]
 toml = [
     {file = "toml-0.10.0-py2.7.egg", hash = "sha256:f1db651f9657708513243e61e6cc67d101a39bad662eaa9b5546f789338e07a3"},
