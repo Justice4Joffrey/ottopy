@@ -2,7 +2,7 @@ import json
 from typing import Tuple, Dict, Any
 
 from structlog import get_logger, configure, processors
-from structlog._config import BoundLoggerLazyProxy
+from structlog._config import BoundLoggerLazyProxy as StructLogger
 
 from ottopy.dt import DateTime, strftime, utcnow
 from ottopy.dt.formats import DtFormatStr
@@ -11,7 +11,7 @@ from ottopy.log import Logger
 __all__ = [
     "get_struct_logger",
     "parse_log_line",
-    "BoundLoggerLazyProxy",
+    "StructLogger",
     "EventDict",
     "EVENT",
     "LOG_TS_KEY",
@@ -29,7 +29,7 @@ def timestamper(_: Logger, __: str, event_dict: EventDict) -> EventDict:
     return event_dict
 
 
-def get_struct_logger() -> BoundLoggerLazyProxy:
+def get_struct_logger() -> StructLogger:
     """Create a struct logger which creates each log line as a timestamped JSON"""
     configure(
         processors=[
