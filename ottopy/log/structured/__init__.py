@@ -8,6 +8,15 @@ from ottopy.dt import DateTime, strftime, utcnow
 from ottopy.dt.formats import DtFormatStr
 from ottopy.log import Logger
 
+__all__ = [
+    "get_struct_logger",
+    "parse_log_line",
+    "BoundLoggerLazyProxy",
+    "EventDict",
+    "EVENT",
+    "LOG_TS_KEY",
+]
+
 LOG_TS_KEY = "_log_ts"
 EVENT = "event"
 
