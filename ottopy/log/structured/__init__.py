@@ -1,5 +1,5 @@
 import json
-from typing import Tuple, Dict, Any
+from typing import Tuple, Dict, Any, Optional, Union
 
 from structlog import get_logger, configure, processors
 from structlog._config import BoundLoggerLazyProxy as StructLogger
@@ -11,6 +11,7 @@ from ottopy.log import Logger
 __all__ = [
     "get_struct_logger",
     "parse_log_line",
+    "ParsedLogLine",
     "StructLogger",
     "EventDict",
     "EVENT",
@@ -21,6 +22,8 @@ LOG_TS_KEY = "_log_ts"
 EVENT = "event"
 
 EventDict = Dict[str, Any]
+ParsedLogLine = Tuple[DateTime, str, EventDict]
+ParsedLogLineResult = Tuple[Optional[ParsedLogLine], Optional[str]]
 
 
 def timestamper(_: Logger, __: str, event_dict: EventDict) -> EventDict:
@@ -40,7 +43,10 @@ def get_struct_logger() -> StructLogger:
     return get_logger()
 
 
-def parse_log_line(line: str) -> Tuple[DateTime, str, Dict[str, Any]]:
+def parse_log_line(line: Union[str, bytes]) -> ParsedLogLineResult:
     """Convert a struct logger line """
-    data = json.loads(line)
-    return data.pop(LOG_TS_KEY), data.pop(EVENT), data
+    try:
+        data = json.loads(line)
+    except json.JSONDecodeError as e:
+        return None, e.msg
+    return (data.pop(LOG_TS_KEY), data.pop(EVENT), data), None
