@@ -14,7 +14,7 @@ class SuppressedSession(Session):
         # TODO: you could parse the url, track the host and suppress only
         #  requests to the same site
         #  to make this useful you'll also have to clean up to
-        time.sleep(min(0, self.last_request_ts + self.suppression_s - time.time()))
+        time.sleep(max(0, self.last_request_ts + self.suppression_s - time.time()))
 
     def send(self, request: Request, **kwargs: Dict[str, Any]) -> Response:
         self.suppress()
