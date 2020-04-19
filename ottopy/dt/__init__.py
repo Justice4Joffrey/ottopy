@@ -8,6 +8,7 @@ __all__ = [
     "new_datetime",
     "strftime",
     "strptime",
+    "timedelta",
     "utcnow",
     "utcfromtimestamp",
     "DISTANT_FUTURE",
@@ -23,6 +24,7 @@ _strftime = datetime.datetime.strftime
 _strptime = datetime.datetime.strptime
 _now = datetime.datetime.now
 UTC = datetime.timezone.utc
+timedelta = datetime.timedelta
 
 DateTimeTuple = Union[
     Tuple[int, int, int],
