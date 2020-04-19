@@ -13,15 +13,14 @@ google-auth-httplib2 = "^0.0.3"
 google-auth-oauthlib = "^0.4.1"
 mypy = "^0.761"
 pytz = "^2019.3"
-pre-commit = "1.21.0"
 returns = "^0.13.0"
 structlog = "^20.1.0"
+pre-commit = "2.2.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
 flake8 = "^3.7.9"
 twisted = "^19.10.0"
-pre-commit = "^1.21.0"
 ipython = "^7.13.0"
 
 [build-system]
