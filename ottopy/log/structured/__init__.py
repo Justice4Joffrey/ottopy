@@ -8,6 +8,7 @@ from structlog import (
     processors as _processors,
     stdlib,
     BoundLogger,
+    PrintLoggerFactory,
 )
 
 from ottopy.dt import DateTime, strftime, utcnow
@@ -18,6 +19,7 @@ __all__ = [
     "get_struct_logger",
     "parse_log_line",
     "stdlib",
+    "LoggerFactory",
     "ParsedLogLine",
     "Processor",
     "StructLogger",
@@ -32,11 +34,12 @@ EVENT = "event"
 
 EventDict = Dict[str, Any]
 Processor = Callable[[Logger, str, EventDict], EventDict]
-ParsedLogLine = Tuple[DateTime, str, EventDict]
-ParsedLogLineResult = Tuple[Optional[ParsedLogLine], Optional[str]]
-
+LoggerFactory = Union[PrintLoggerFactory, stdlib.LoggerFactory]
 StructLogger = Type[BoundLogger]
 stdlib = stdlib
+
+ParsedLogLine = Tuple[DateTime, str, EventDict]
+ParsedLogLineResult = Tuple[Optional[ParsedLogLine], Optional[str]]
 
 
 def timestamper(_: Logger, __: str, event_dict: EventDict) -> EventDict:
@@ -52,15 +55,18 @@ DEFAULT_PROCESSORS: Tuple[Processor, ...] = (
 
 
 def get_struct_logger(
-    *,
+    *logger_args: Any,
     processors: Tuple[Processor, ...] = DEFAULT_PROCESSORS,
     wrapper_class: Optional[StructLogger] = None,
+    logger_factory: LoggerFactory = None,
 ) -> StructLogger:
     """Create a struct logger which creates each log line as a timestamped JSON"""
     configure(
-        processors=list(processors), wrapper_class=wrapper_class,
+        processors=list(processors),
+        wrapper_class=wrapper_class,
+        logger_factory=logger_factory,
     )
-    return get_logger()
+    return get_logger(*logger_args)
 
 
 def parse_log_line(line: Union[str, bytes]) -> ParsedLogLineResult:
