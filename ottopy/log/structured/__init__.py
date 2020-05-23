@@ -1,18 +1,13 @@
 import json
 import os
-from typing import Tuple, Dict, Any, Optional, Union, Callable, Type
+from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 
-from structlog import (
-    get_logger,
-    configure,
-    processors as _processors,
-    stdlib,
-    BoundLogger,
-    PrintLoggerFactory,
-)
+from structlog import BoundLogger, PrintLoggerFactory, configure, get_logger
+from structlog import processors as _processors
+from structlog import stdlib
 
 from ottopy.dt import DateTime, strftime, utcnow
-from ottopy.dt.formats import DtFormatStr
+from ottopy.dt.formats import DtFormatStr, to_zulu_format
 from ottopy.log import Logger
 
 __all__ = [
@@ -44,7 +39,9 @@ ParsedLogLineResult = Tuple[Optional[ParsedLogLine], Optional[str]]
 
 def timestamper(_: Logger, __: str, event_dict: EventDict) -> EventDict:
     """Don't use structlog Timestamper as it's tz unaware"""
-    event_dict[LOG_TS_KEY] = strftime(utcnow(), DtFormatStr.LOGGING_DATE_FORMAT)
+    event_dict[LOG_TS_KEY] = to_zulu_format(
+        strftime(utcnow(), DtFormatStr.LOGGING_DATE_FORMAT)
+    )
     return event_dict
 
 
