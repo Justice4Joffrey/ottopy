@@ -1,6 +1,7 @@
 import os
 import tempfile
 import unittest
+from pathlib import Path
 
 from ottopy.dt import DateTime, strptime
 from ottopy.dt.formats import DtFormatStr
@@ -16,7 +17,11 @@ class TestLog(unittest.TestCase):
             filepath = os.path.join(d, base_filename)
             handler = make_file_handler(filepath)
             handler.doRollover()
-            rolled = tuple(x for x in os.listdir(d) if x != filename)[0]
-            ext = rolled.replace(f"{filename}.", "")
+            rolled = Path(tuple(x for x in os.listdir(d) if x != filename)[0])
+            self.assertEqual(base_filename, rolled.stem.split(".")[0])
+            self.assertEqual(2, len(rolled.suffixes))
+            self.assertEqual(DEFAULT_SUFFIX, rolled.suffixes[1])
+            self.assertEqual(".", rolled.suffixes[0][0])
+            ext = rolled.suffixes[0][1:]
             dtime = strptime(ext, DtFormatStr.FILENAME_FORMAT)
             self.assertIsInstance(dtime, DateTime)

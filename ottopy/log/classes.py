@@ -1,5 +1,6 @@
 import logging
 from logging.handlers import TimedRotatingFileHandler
+from pathlib import Path
 from typing import Any, Literal, NamedTuple, Optional
 
 from ottopy.dt import DateTime, strftime, utcfromtimestamp, utcnow
@@ -61,7 +62,9 @@ class UTCTimedRotatingFileHandler(TimedRotatingFileHandler):
 
     def _namer(self, __: Any) -> str:
         now = strftime(utcnow(), self.file_time_format)
-        return f"{self.baseFilename}.{now}"
+        base_filename = Path(self.baseFilename)
+        filename = f"{base_filename.stem}.{now}{base_filename.suffix}"
+        return str(base_filename.parent / filename)
 
 
 class _LogLevelType(NamedTuple):
