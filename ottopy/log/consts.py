@@ -1,4 +1,4 @@
-from ottopy.log import Formatter
+from logging import Formatter
 from ottopy.log.classes import UTCMicroSecFormatter
 
 DEFAULT_SUFFIX = ".log"
