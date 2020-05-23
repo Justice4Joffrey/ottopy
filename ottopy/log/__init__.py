@@ -9,7 +9,7 @@ from ottopy.log.classes import (
     UTCTimedRotatingFileHandler,
     WhenType,
 )
-from ottopy.log.consts import DEFAULT_SUFFIX, FORMATTER, RAW_FORMATTER
+from ottopy.log.consts import DEFAULT_SUFFIX, FORMATTER, RAW_FORMATTER, PLAIN_FORMATTER
 from ottopy.read import create_dir
 
 __all__ = [
@@ -28,6 +28,7 @@ __all__ = [
     "UTCTimedRotatingFileHandler",
     "FORMATTER",
     "RAW_FORMATTER",
+    "PLAIN_FORMATTER",
 ]
 
 
