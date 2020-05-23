@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Literal, NamedTuple, Optional
 
 from ottopy.dt import DateTime, strftime, utcfromtimestamp, utcnow
-from ottopy.dt.formats import DtFormatStr
+from ottopy.dt.formats import DtFormatStr, to_zulu_format
 from ottopy.log.string_utils import unicode_escape
 
 WhenType = Literal[
@@ -26,7 +26,7 @@ class UTCMicroSecFormatter(logging.Formatter):
         if datefmt:
             return strftime(ct, datefmt)
         else:
-            return strftime(ct, self.default_time_format)
+            return to_zulu_format(strftime(ct, self.default_time_format))
 
     def formatMessage(self, record: logging.LogRecord) -> str:
         record.msg = unicode_escape(record.msg)
@@ -61,7 +61,7 @@ class UTCTimedRotatingFileHandler(TimedRotatingFileHandler):
         self.namer = self._namer
 
     def _namer(self, __: Any) -> str:
-        now = strftime(utcnow(), self.file_time_format)
+        now = to_zulu_format(strftime(utcnow(), self.file_time_format))
         base_filename = Path(self.baseFilename)
         filename = f"{base_filename.stem}.{now}{base_filename.suffix}"
         return str(base_filename.parent / filename)
