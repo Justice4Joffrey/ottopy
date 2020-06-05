@@ -1,7 +1,8 @@
 import time
 from typing import Any, Dict
+from urllib.parse import urlparse
 
-from requests import Session, Request, Response, PreparedRequest
+from requests import PreparedRequest, Request, Response, Session
 
 
 class SuppressedSession(Session):
@@ -26,6 +27,10 @@ def send_request(
     session: Session, request: Request, *, allow_redirects: bool = True
 ) -> Response:
     prep = prepare(session, request)
+    # Important! Host header directs routing for Traefik
+    # I would prefer it read the URL, but I don't think it actually gets this as it's
+    # handled in the DNS
+    prep.headers["Host"] = urlparse(request.url).hostname
     resp = execute(session, prep, allow_redirects=allow_redirects)
     return resp
 
