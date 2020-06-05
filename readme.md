@@ -2,5 +2,5 @@
 
 install with 
 ```
-poetry add git+ssh://git@github.com:Justice4Joffrey/ottopy.git
+poetry add git+https://github.com/Justice4Joffrey/ottopy.git
 ```
