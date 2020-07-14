@@ -7,9 +7,9 @@ ZULU = "Z"
 
 # formats ending with _SEC will be expected to truncate microseconds in tests
 class DtFormatStr(Enum):
-    LOGGING_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S.%f%z"
-    FILENAME_FORMAT: str = "%Y-%m-%d_%H-%M-%S_%f%z"
-    FILENAME_FORMAT_SEC: str = "%Y-%m-%d_%H-%M-%S%z"
+    LOGGING_DATE_FORMAT = "%Y-%m-%d %H:%M:%S.%f%z"
+    FILENAME_FORMAT = "%Y-%m-%d_%H-%M-%S_%f%z"
+    FILENAME_FORMAT_SEC = "%Y-%m-%d_%H-%M-%S%z"
 
 
 def _convert_suffix(from_str: str, to_str: str) -> Callable[[str], str]:

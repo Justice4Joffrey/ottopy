@@ -1,6 +1,8 @@
 import datetime
 from typing import Match, Tuple, Union, cast
 
+from ottopy.dt.formats import DtFormatStr
+
 __all__ = [
     "DateTime",
     "Date",
@@ -9,6 +11,8 @@ __all__ = [
     "datetime_from_regex",
     "strftime",
     "strptime",
+    "strftime_enum",
+    "strptime_enum",
     "timedelta",
     "utcnow",
     "utcfromtimestamp",
@@ -16,6 +20,7 @@ __all__ = [
     "EPOCH",
     "UTC",
 ]
+
 
 DateTime = datetime.datetime
 Date = datetime.date
@@ -78,6 +83,14 @@ def strftime(dt: DateTime, fmt: str) -> str:
 
 def strptime(string: str, fmt: str) -> DateTime:
     return _strptime(string, fmt)
+
+
+def strftime_enum(dt: DateTime, fmt: DtFormatStr) -> str:
+    return _strftime(dt, fmt.value)
+
+
+def strptime_enum(string: str, fmt: DtFormatStr) -> DateTime:
+    return _strptime(string, fmt.value)
 
 
 def utcnow() -> DateTime:

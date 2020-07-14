@@ -13,7 +13,7 @@ WhenType = Literal[
 
 
 class UTCMicroSecFormatter(logging.Formatter):
-    default_time_format = DtFormatStr.LOGGING_DATE_FORMAT
+    default_time_format = DtFormatStr.LOGGING_DATE_FORMAT.value
     default_msec_format = ""
 
     def dt_converter(self, x: int) -> DateTime:
@@ -35,7 +35,7 @@ class UTCMicroSecFormatter(logging.Formatter):
 
 
 class UTCTimedRotatingFileHandler(TimedRotatingFileHandler):
-    file_time_format = DtFormatStr.FILENAME_FORMAT
+    file_time_format = DtFormatStr.FILENAME_FORMAT.value
 
     def __init__(
         self,
