@@ -24,6 +24,8 @@ def _substitute(string: str) -> str:
     return rf"{string}"
 
 
+# mypy hates enums
+# https://github.com/python/mypy/issues/5317
 DtFormatStrRegex = enum.Enum(  # type: ignore
     "DtFormatStrRegex", {v.name: _substitute(re.escape(v.value)) for v in DtFormatStr}
 )
