@@ -1,7 +1,7 @@
+import enum
 import re
-from typing import NamedTuple, Pattern, cast
 
-from ottopy.dt.formats import DtFormatStr, _DtFormatStrType
+from ottopy.dt.formats import DtFormatStr
 
 _TRANS = {
     "%Y": r"(\d{4})",
@@ -24,12 +24,6 @@ def _substitute(string: str) -> str:
     return rf"{string}"
 
 
-# mypy shits the bed with dynamic NamedTuples https://github.com/python/mypy/issues/848
-_DtFormatStrRegex = NamedTuple(  # type: ignore
-    "_DtFormatStrRegex", [(field, Pattern[str]) for field in DtFormatStr._fields]
+DtFormatStrRegex = enum.Enum(  # type: ignore
+    "DtFormatStrRegex", {v.name: _substitute(re.escape(v.value)) for v in DtFormatStr}
 )
-
-DtFormatStrRegex = _DtFormatStrRegex(*[_substitute(re.escape(s)) for s in DtFormatStr])
-
-# mypy juju to make it clear it has the same attributes as the parent
-DtFormatStrRegex = cast(_DtFormatStrType, DtFormatStrRegex)  # type: ignore

@@ -1,11 +1,12 @@
 import datetime
-from typing import Union, Match, cast, Tuple
+from typing import Match, Tuple, Union, cast
 
 __all__ = [
     "DateTime",
     "Date",
     "Time",
     "new_datetime",
+    "datetime_from_regex",
     "strftime",
     "strptime",
     "timedelta",

@@ -1,10 +1,12 @@
-from typing import Callable, NamedTuple
+from enum import Enum
+from typing import Callable
 
 UTC_OFFSET = "+0000"
 ZULU = "Z"
 
 
-class _DtFormatStrType(NamedTuple):
+# formats ending with _SEC will be expected to truncate microseconds in tests
+class DtFormatStr(Enum):
     LOGGING_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S.%f%z"
     FILENAME_FORMAT: str = "%Y-%m-%d_%H-%M-%S_%f%z"
     FILENAME_FORMAT_SEC: str = "%Y-%m-%d_%H-%M-%S%z"
@@ -21,6 +23,3 @@ def _convert_suffix(from_str: str, to_str: str) -> Callable[[str], str]:
 
 parse_zulu_format = _convert_suffix(ZULU, UTC_OFFSET)
 to_zulu_format = _convert_suffix(UTC_OFFSET, ZULU)
-
-
-DtFormatStr = _DtFormatStrType()
