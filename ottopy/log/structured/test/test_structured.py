@@ -18,10 +18,9 @@ def test_parse_log_line() -> None:
     line = '''
         {"_log_ts": "2020-04-01 15:43:21.123456Z", "event": "message", "payload": "hi"}
     '''.strip()
-    (ts, event, body), error  = parse_log_line(line)
+    (ts, body), error  = parse_log_line(line)
     assert ts == DateTime(2020, 4, 1, 15, 43, 21, 123456, tzinfo=UTC)
-    assert event == "message"
-    assert body == {"payload": "hi"}
+    assert body == {"payload": "hi", "event": "message"}
     assert error is None
 
 

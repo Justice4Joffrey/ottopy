@@ -33,7 +33,7 @@ LoggerFactory = Union[PrintLoggerFactory, stdlib.LoggerFactory]
 StructLogger = Type[BoundLogger]
 stdlib = stdlib
 
-ParsedLogLine = Tuple[DateTime, str, EventDict]
+ParsedLogLine = Tuple[DateTime, EventDict]
 ParsedLogLineResult = Tuple[Optional[ParsedLogLine], Optional[str]]
 
 
@@ -72,7 +72,10 @@ def parse_log_line(line: Union[str, bytes]) -> ParsedLogLineResult:
         data = json.loads(line)
     except json.JSONDecodeError as e:
         return None, e.msg
-    return (strptime_enum(data.pop(LOG_TS_KEY), DtFormatStr.LOGGING_DATE_FORMAT), data.pop(EVENT), data), None
+    return (
+        (strptime_enum(data.pop(LOG_TS_KEY), DtFormatStr.LOGGING_DATE_FORMAT), data,),
+        None,
+    )
 
 
 def log_startup_message(logger: StructLogger, name: str, git_rev: str) -> None:
