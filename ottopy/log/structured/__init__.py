@@ -6,7 +6,7 @@ from structlog import BoundLogger, PrintLoggerFactory, configure, get_logger
 from structlog import processors as _processors
 from structlog import stdlib
 
-from ottopy.dt import DateTime, strftime, utcnow
+from ottopy.dt import DateTime, utcnow, strftime_enum, strptime_enum
 from ottopy.dt.formats import DtFormatStr, to_zulu_format
 from ottopy.log import Logger
 
@@ -40,7 +40,7 @@ ParsedLogLineResult = Tuple[Optional[ParsedLogLine], Optional[str]]
 def timestamper(_: Logger, __: str, event_dict: EventDict) -> EventDict:
     """Don't use structlog Timestamper as it's tz unaware"""
     event_dict[LOG_TS_KEY] = to_zulu_format(
-        strftime(utcnow(), DtFormatStr.LOGGING_DATE_FORMAT)
+        strftime_enum(utcnow(), DtFormatStr.LOGGING_DATE_FORMAT)
     )
     return event_dict
 
@@ -72,7 +72,7 @@ def parse_log_line(line: Union[str, bytes]) -> ParsedLogLineResult:
         data = json.loads(line)
     except json.JSONDecodeError as e:
         return None, e.msg
-    return (data.pop(LOG_TS_KEY), data.pop(EVENT), data), None
+    return (strptime_enum(data.pop(LOG_TS_KEY), DtFormatStr.LOGGING_DATE_FORMAT), data.pop(EVENT), data), None
 
 
 def log_startup_message(logger: StructLogger, name: str, git_rev: str) -> None:
