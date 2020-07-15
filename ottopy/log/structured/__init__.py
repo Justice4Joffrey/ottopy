@@ -6,7 +6,7 @@ from structlog import BoundLogger, PrintLoggerFactory, configure, get_logger
 from structlog import processors as _processors
 from structlog import stdlib
 
-from ottopy.dt import DateTime, utcnow, strftime_enum, strptime_enum
+from ottopy.dt import DateTime, strftime_enum, strptime_enum, utcnow
 from ottopy.dt.formats import DtFormatStr, to_zulu_format
 from ottopy.log import Logger
 
@@ -14,6 +14,7 @@ __all__ = [
     "get_struct_logger",
     "parse_log_line",
     "stdlib",
+    "timestamper",
     "LoggerFactory",
     "ParsedLogLine",
     "Processor",

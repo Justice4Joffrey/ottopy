@@ -14,6 +14,7 @@ __all__ = [
     "strftime_enum",
     "strptime_enum",
     "timedelta",
+    "DtFormatStr",
     "utcnow",
     "utcfromtimestamp",
     "DISTANT_FUTURE",
