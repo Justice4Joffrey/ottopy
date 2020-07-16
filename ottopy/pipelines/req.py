@@ -24,14 +24,23 @@ class SuppressedSession(Session):
 
 
 def send_request(
-    session: Session, request: Request, *, allow_redirects: bool = True
+    session: Session,
+    request: Request,
+    *,
+    allow_redirects: bool = True,
+    raise_for_status: bool = True
 ) -> Response:
     prep = prepare(session, request)
     # Important! Host header directs routing for Traefik
     # I would prefer it read the URL, but I don't think it actually gets this as it's
     # handled in the DNS
     prep.headers["Host"] = urlparse(request.url).hostname
-    resp = execute(session, prep, allow_redirects=allow_redirects)
+    resp = execute(
+        session,
+        prep,
+        allow_redirects=allow_redirects,
+        raise_for_status=raise_for_status,
+    )
     return resp
 
 
@@ -49,10 +58,15 @@ def validate_json(response: Response) -> Response:
 
 
 def execute(
-    session: Session, prepared_request: PreparedRequest, *, allow_redirects: bool = True
+    session: Session,
+    prepared_request: PreparedRequest,
+    *,
+    allow_redirects: bool = True,
+    raise_for_status: bool = True
 ) -> Response:
     resp = session.send(prepared_request, allow_redirects=allow_redirects)
-    resp.raise_for_status()
+    if raise_for_status:
+        resp.raise_for_status()
     return resp
 
 
