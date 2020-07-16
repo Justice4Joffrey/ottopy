@@ -22,4 +22,4 @@ def send_request_no_exc(
         )
     except RequestException:
         return WrappedResponse(None, success=False, connection_error=True)
-    return WrappedResponse(response, success=400 <= response.status_code < 600)
+    return WrappedResponse(response, success=not 400 <= response.status_code < 600)
