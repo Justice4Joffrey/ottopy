@@ -7,7 +7,7 @@ authors = ["Otto Castle <otto.castle1@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 requests = "^2.22.0"
-mypy = "0.761"
+mypy = "^0.761"
 pytz = "^2019.3"
 structlog = "^20.1.0"
 pre-commit = "2.2.0"
