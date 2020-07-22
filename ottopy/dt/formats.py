@@ -8,7 +8,8 @@ ZULU = "Z"
 # formats ending with _SEC will be expected to truncate microseconds in tests
 class DtFormatStr(Enum):
     LOGGING_DATE_FORMAT = "%Y-%m-%d %H:%M:%S.%f%z"
-    ISO_8601 = "%Y-%m-%dT%H:%M:%S.%f%z"
+    ISO_8601 = "%Y-%m-%dT%H:%M:%S%z"
+    ISO_8601_MS = "%Y-%m-%dT%H:%M:%S.%f%z"
     FILENAME_FORMAT = "%Y-%m-%d_%H-%M-%S_%f%z"
     FILENAME_FORMAT_SEC = "%Y-%m-%d_%H-%M-%S%z"
 
