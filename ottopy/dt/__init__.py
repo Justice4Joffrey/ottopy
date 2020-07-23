@@ -17,6 +17,7 @@ __all__ = [
     "DtFormatStr",
     "utcnow",
     "utcfromtimestamp",
+    "utcfromnanotimestamp",
     "DISTANT_FUTURE",
     "EPOCH",
     "UTC",
@@ -76,6 +77,10 @@ EPOCH = new_datetime(1970, 1, 1, 0, 0, 0)
 
 def utcfromtimestamp(ts: Union[float, int]) -> DateTime:
     return _fromtimestamp(ts, tz=UTC)
+
+
+def utcfromnanotimestamp(ts: Union[float, int]) -> DateTime:
+    return utcfromtimestamp(ts / 1e9)
 
 
 def strftime(dt: DateTime, fmt: str) -> str:
