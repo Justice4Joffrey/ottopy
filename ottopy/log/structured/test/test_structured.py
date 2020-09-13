@@ -1,6 +1,9 @@
+from typing import cast
+
 import mock
 
-from ottopy.dt import UTC, DateTime, DtFormatStr, strptime_enum
+from ottopy.dt import new_datetime, timedelta, utcfromnanotimestamp, utcnow
+from ottopy.log import Logger
 from ottopy.log.structured import LOG_TS_KEY, EventDict, parse_log_line, timestamper
 
 
@@ -8,21 +11,22 @@ def test_timestamper() -> None:
     logger = mock.Mock()
     second = ""
     event_dict: EventDict = {}
-    timestamper(logger, second, event_dict)
+    timestamper(cast(Logger, logger), second, event_dict)
     ts = event_dict.pop(LOG_TS_KEY)
     assert not event_dict
     # will fail if not parseable
-    strptime_enum(ts, DtFormatStr.LOGGING_DATE_FORMAT)
+    dt = utcfromnanotimestamp(ts)
+    assert abs(utcnow() - dt) < timedelta(seconds=2)
 
 
 def test_parse_log_line() -> None:
     line = """
-        {"_log_ts": "2020-04-01 15:43:21.123456Z", "event": "message", "payload": "hi"}
+        {"ts": 1599912431800779008, "event": "message", "payload": "hi"}
     """.strip()
     result, error = parse_log_line(line)
     assert result is not None
     ts, body = result
-    assert ts == DateTime(2020, 4, 1, 15, 43, 21, 123456, tzinfo=UTC)
+    assert ts == new_datetime(2020, 9, 12, 12, 7, 11, 800779)
     assert body == {"payload": "hi", "event": "message"}
     assert error is None
 

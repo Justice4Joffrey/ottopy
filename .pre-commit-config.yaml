@@ -6,7 +6,6 @@ repos:
       - id: isort
         name: isort
         entry: isort
-        args: ["--recursive", "--apply"]
         language: python
         types: [python]
   - repo: local
