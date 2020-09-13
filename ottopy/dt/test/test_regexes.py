@@ -16,7 +16,8 @@ def test_regexes() -> None:
         match = cast(re.Match, match)
         assert match is not None
         parsed = datetime_from_regex(match)
-        exp = now_sec if field.name.endswith("_SEC") else now
+        # allow seconds of deviation if ms not specified
+        exp = now_sec if "%f" not in field.value else now
         assert (
             exp == parsed
         ), f"Field {field} format {field.value} doesn't match pattern {pattern}"

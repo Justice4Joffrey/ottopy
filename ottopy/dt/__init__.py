@@ -1,4 +1,5 @@
 import datetime
+import time
 from typing import Match, Tuple, Union, cast
 
 from ottopy.dt.formats import DtFormatStr
@@ -8,6 +9,8 @@ __all__ = [
     "Date",
     "Time",
     "new_datetime",
+    "new_timestamp",
+    "new_nano_timestamp",
     "datetime_from_regex",
     "strftime",
     "strptime",
@@ -32,6 +35,7 @@ _strftime = datetime.datetime.strftime
 _strptime = datetime.datetime.strptime
 _now = datetime.datetime.now
 UTC = datetime.timezone.utc
+NANOS = 1e9
 timedelta = datetime.timedelta
 
 DateTimeTuple = Union[
@@ -62,6 +66,14 @@ def new_datetime(
     )
 
 
+def new_timestamp() -> float:
+    return time.time()
+
+
+def new_nano_timestamp() -> int:
+    return int(time.time() * NANOS)
+
+
 def datetime_from_regex(match: Match) -> DateTime:
     _tpl = tuple(map(int, match.groups()))
     if _tpl[-1] != 0:
@@ -80,7 +92,7 @@ def utcfromtimestamp(ts: Union[float, int]) -> DateTime:
 
 
 def utcfromnanotimestamp(ts: Union[float, int]) -> DateTime:
-    return utcfromtimestamp(ts / 1e9)
+    return utcfromtimestamp(ts / NANOS)
 
 
 def strftime(dt: DateTime, fmt: str) -> str:
